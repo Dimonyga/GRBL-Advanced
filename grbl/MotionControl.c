@@ -234,12 +234,12 @@ void MC_Arc(float *target, Planner_LineData_t *pl_data, float *position, float *
 	float angular_travel = atan2(r_axis0*rt_axis1-r_axis1*rt_axis0, r_axis0*rt_axis0+r_axis1*rt_axis1);
 	if(is_clockwise_arc) { // Correct atan2 output per direction
 		if(angular_travel >= -ARC_ANGULAR_TRAVEL_EPSILON) {
-			angular_travel -= 2*M_PI;
+			angular_travel -= 2*PI;
 		}
 	}
 	else {
 		if(angular_travel <= ARC_ANGULAR_TRAVEL_EPSILON) {
-			angular_travel += 2*M_PI;
+			angular_travel += 2*PI;
 		}
 	}
 

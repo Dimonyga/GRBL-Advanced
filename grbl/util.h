@@ -26,11 +26,6 @@
 #include <stdbool.h>
 
 
-#ifndef M_PI
-	#define M_PI		3.14159265358979323846
-#endif // M_PI
-
-
 // Bit field and masking macros
 #define BIT(n) 						(1 << n)
 #define BIT_TRUE_ATOMIC(x,mask) 	BIT_TRUE(x,mask)
