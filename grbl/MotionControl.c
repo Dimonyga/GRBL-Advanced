@@ -247,7 +247,7 @@ void MC_Arc(float *target, Planner_LineData_t *pl_data, float *position, float *
 	// (2x) settings.arc_tolerance. For 99% of users, this is just fine. If a different arc segment fit
 	// is desired, i.e. least-squares, midpoint on arc, just change the mm_per_arc_segment calculation.
 	// For the intended uses of Grbl, this value shouldn't exceed 2000 for the strictest of cases.
-	uint16_t segments = floor(fabs(0.5*angular_travel*radius) / sqrt(settings.arc_tolerance*(2*radius - settings.arc_tolerance)));
+	uint16_t segments = floor(fabsf(0.5*angular_travel*radius) / sqrtf(settings.arc_tolerance*(2*radius - settings.arc_tolerance)));
 
 	if(segments) {
 		// Multiply inverse feed_rate to compensate for the fact that this movement is approximated

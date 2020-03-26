@@ -149,12 +149,12 @@ void Delay_sec(float seconds, uint8_t mode)
 // Simple hypotenuse computation function.
 float hypot_f(float x, float y)
 {
-	return sqrt(x*x + y*y);
+	return sqrtf(x*x + y*y);
 }
 
 bool isEqual_f(float a, float b)
 {
-	if(fabs(a-b) < 0.00001) {
+	if(fabsf(a-b) < 0.00001) {
 		return true;
 	}
 
@@ -172,7 +172,7 @@ float convert_delta_vector_to_unit_vector(float *vector)
 		}
 	}
 
-	magnitude = sqrt(magnitude);
+	magnitude = sqrtf(magnitude);
 	float inv_magnitude = 1.0/magnitude;
 
 	for(idx = 0; idx < N_AXIS; idx++) {
@@ -189,7 +189,7 @@ float limit_value_by_axis_maximum(float *max_value, float *unit_vec)
 
 	for(idx = 0; idx < N_AXIS; idx++) {
 		if(unit_vec[idx] != 0) {  // Avoid divide by zero.
-			limit_value = min(limit_value,fabs(max_value[idx]/unit_vec[idx]));
+			limit_value = min(limit_value,fabsf(max_value[idx]/unit_vec[idx]));
 		}
 	}
 

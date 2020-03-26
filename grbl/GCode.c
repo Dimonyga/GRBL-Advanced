@@ -1155,7 +1155,7 @@ uint8_t GC_ExecuteLine(char *line)
 					}
 
 					// Finish computing h_x2_div_d.
-					h_x2_div_d = -sqrt(h_x2_div_d)/hypot_f(x,y); // == -(h * 2 / d)
+					h_x2_div_d = -sqrtf(h_x2_div_d)/hypot_f(x,y); // == -(h * 2 / d)
 					// Invert the sign of h_x2_div_d if the circle is counter clockwise (see sketch below)
 					if(gc_block.modal.motion == MOTION_MODE_CCW_ARC)
                     {
@@ -1218,7 +1218,7 @@ uint8_t GC_ExecuteLine(char *line)
 						gc_block.values.r = hypot_f(gc_block.values.ijk[axis_0], gc_block.values.ijk[axis_1]);
 
 						// Compute difference between current location and target radii for final error-checks.
-						float delta_r = fabs(target_r-gc_block.values.r);
+						float delta_r = fabsf(target_r-gc_block.values.r);
 						if(delta_r > 0.005) {
 							if(delta_r > 0.5) {
 								// [Arc definition error] > 0.5mm
