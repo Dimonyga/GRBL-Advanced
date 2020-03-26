@@ -3,3 +3,8 @@ obj/*
 *.depend
 *.layout
 grbl-master
+build/*
+GRBL_Advanced.*
+!GRBL_Advanced.elay
+!GRBL_Advanced.ebp
+
