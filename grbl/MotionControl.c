@@ -33,6 +33,8 @@
 #include "CoolantControl.h"
 #include "MotionControl.h"
 #include "defaults.h"
+#include "stm32f4xx.h"
+#include "arm_math.h"
 
 
 #define DIR_POSITIV     0
@@ -307,8 +309,8 @@ void MC_Arc(float *target, Planner_LineData_t *pl_data, float *position, float *
 			else {
 				// Arc correction to radius vector. Computed only every N_ARC_CORRECTION increments. ~375 usec
 				// Compute exact location by applying transformation matrix from initial radius vector(=-offset).
-				cos_Ti = cos(i*theta_per_segment);
-				sin_Ti = sin(i*theta_per_segment);
+				cos_Ti = arm_cos_f32(i*theta_per_segment);
+				sin_Ti = arm_sin_f32(i*theta_per_segment);
 				r_axis0 = -offset[axis_0]*cos_Ti + offset[axis_1]*sin_Ti;
 				r_axis1 = -offset[axis_0]*sin_Ti - offset[axis_1]*cos_Ti;
 				count = 0;

@@ -102,7 +102,7 @@ uint8_t Planner_BufferLine(float *target, Planner_LineData_t *pl_data)
 
 	// Compute and store initial move distance data.
 	int32_t target_steps[N_AXIS], position_steps[N_AXIS];
-	float unit_vec[N_AXIS], delta_mm;
+	float unit_vec[N_AXIS];
 	uint8_t idx;
 
 	// Copy position data based on type of motion being planned.
@@ -141,24 +141,23 @@ uint8_t Planner_BufferLine(float *target, Planner_LineData_t *pl_data)
 		block->step_event_count = max(block->step_event_count, block->steps[idx]);
 
 		if(idx == A_MOTOR) {
-			delta_mm = (target_steps[X_AXIS]-position_steps[X_AXIS] + target_steps[Y_AXIS]-position_steps[Y_AXIS])/settings.steps_per_mm[idx];
+			unit_vec[idx] = (target_steps[X_AXIS]-position_steps[X_AXIS] + target_steps[Y_AXIS]-position_steps[Y_AXIS])/settings.steps_per_mm[idx];
 		}
 		else if(idx == B_MOTOR) {
-			delta_mm = (target_steps[X_AXIS]-position_steps[X_AXIS] - target_steps[Y_AXIS]+position_steps[Y_AXIS])/settings.steps_per_mm[idx];
+			unit_vec[idx] = (target_steps[X_AXIS]-position_steps[X_AXIS] - target_steps[Y_AXIS]+position_steps[Y_AXIS])/settings.steps_per_mm[idx];
 		}
 		else {
-			delta_mm = (target_steps[idx] - position_steps[idx])/settings.steps_per_mm[idx];
+			unit_vec[idx] = (target_steps[idx] - position_steps[idx])/settings.steps_per_mm[idx];
 		}
 #else
 		target_steps[idx] = lround(target[idx]*settings.steps_per_mm[idx]);
 		block->steps[idx] = labs(target_steps[idx]-position_steps[idx]);
 		block->step_event_count = max(block->step_event_count, block->steps[idx]);
-		delta_mm = (target_steps[idx] - position_steps[idx])/settings.steps_per_mm[idx];
+		unit_vec[idx] = (target_steps[idx] - position_steps[idx])/settings.steps_per_mm[idx];
 #endif
-		unit_vec[idx] = delta_mm; // Store unit vector numerator
 
 		// Set direction bits. Bit enabled always means direction is negative.
-		if(delta_mm < 0.0) {
+		if(unit_vec[idx] < 0.0) {
 			block->direction_bits |= Settings_GetDirectionPinMask(idx);
 		}
 	}
