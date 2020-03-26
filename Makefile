@@ -11,7 +11,6 @@
 #---------------------------------------------------------------------------------
 # Location of gcc-arm-none-eabi toolchain
 GCC_BASE	= 	/usr/local/bin/
-CMSIS_LOCATION = ../CMSIS/
 
 CC          =   ${GCC_BASE}/arm-none-eabi-gcc
 CXX         =   ${GCC_BASE}/arm-none-eabi-g++
@@ -27,7 +26,7 @@ OBJDUMP		= 	${GCC_BASE}/arm-none-eabi-objdump
 #---------------------------------------------------------------------------------
 TARGET		:=	GRBL_Advanced
 BUILD       :=	build
-SOURCES		:=	./ $(CMSIS_LOCATION)CMSIS/Include grbl/ HAL/ HAL/EXTI HAL/FLASH HAL/GPIO HAL/I2C HAL/SPI HAL/STM32 HAL/TIM HAL/USART SPL/src Src/ Libraries/GrIP Libraries/CRC Libraries/Ethernet Libraries/Ethernet/utility
+SOURCES		:=	./ CMSIS/CMSIS/Core/Include/ CMSIS/CMSIS/DSP/Include grbl/ HAL/ HAL/EXTI HAL/FLASH HAL/GPIO HAL/I2C HAL/SPI HAL/STM32 HAL/TIM HAL/USART SPL/src Src/ Libraries/GrIP Libraries/CRC Libraries/Ethernet Libraries/Ethernet/utility
 
 INCLUDES    :=	$(SOURCES) SPL/inc
 
@@ -38,7 +37,7 @@ FLAGS       := 	-mfloat-abi=hard -mcpu=cortex-m4 -gdwarf-2 -mfpu=fpv4-sp-d16 -mt
 CFLAGS      := 	-O2 -g1 -std=c11 -Wall -Wextra $(INCLUDE) -fno-common -fsingle-precision-constant -fdata-sections -ffunction-sections -fomit-frame-pointer -mlittle-endian  -DUSE_STDPERIPH_DRIVER -DSTM32F411xE -DSTM32F411RE -DARM_MATH_CM4 -D__FPU_PRESENT -Wimplicit-fallthrough=0 
 CXXFLAGS    :=  $(CFLAGS)
 
-LDFLAGS		:=	-lm -flto -Wl,--gc-sections -T../stm32f411re_flash.ld -Wl,-Map=$(OUTPUT).map --specs=nosys.specs -nostartfiles --specs=nano.specs -L../$(CMSIS_LOCATION)/CMSIS/Lib/GCC/ -larm_cortexM4lf_math
+LDFLAGS		:=	-lm -flto -Wl,--gc-sections -T../stm32f411re_flash.ld -Wl,-Map=$(OUTPUT).map --specs=nosys.specs -nostartfiles --specs=nano.specs -L../CMSIS/CMSIS/DSP/Lib/GCC/ -larm_cortexM4lf_math
 
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
