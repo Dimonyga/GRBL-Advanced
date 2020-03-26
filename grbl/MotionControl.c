@@ -33,7 +33,6 @@
 #include "CoolantControl.h"
 #include "MotionControl.h"
 #include "defaults.h"
-#include "stm32f4xx.h"
 #include "arm_math.h"
 
 
