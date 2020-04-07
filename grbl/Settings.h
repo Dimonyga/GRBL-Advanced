@@ -24,6 +24,7 @@
 
 #include <stdint.h>
 #include "util.h"
+#include "Config.h"
 
 
 // Version of the EEPROM data. Will be used to migrate existing data from older versions of Grbl
@@ -78,7 +79,11 @@
 // #define SETTING_INDEX_G92    N_COORDINATE_SYSTEM+2  // Coordinate offset (G92.2,G92.3 not supported)
 
 // Define Grbl axis settings numbering scheme. Starts at START_VAL, every INCREMENT, over N_SETTINGS.
-#define AXIS_N_SETTINGS          			5
+#ifdef USE_MULTI_AXIS
+	#define AXIS_N_SETTINGS          			5
+#else
+	#define AXIS_N_SETTINGS          			3
+#endif
 #define AXIS_SETTINGS_START_VAL  			100 // NOTE: Reserving settings values >= 100 for axis settings. Up to 255.
 #define AXIS_SETTINGS_INCREMENT  			10  // Must be greater than the number of axis settings
 

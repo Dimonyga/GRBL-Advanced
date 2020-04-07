@@ -23,10 +23,13 @@
 
 #include "System32.h"
 #include "grbl_advance.h"
-#include "Ethernet.h"
-#include "GrIP.h"
-#include "ServerTCP.h"
-#include "util2.h"
+
+#ifdef ETH_
+  #include "Ethernet.h"
+  #include "GrIP.h"
+  #include "ServerTCP.h"
+  #include "util2.h"
+#endif
 
 #include "Print.h"
 #include "FIFO_USART.h"
